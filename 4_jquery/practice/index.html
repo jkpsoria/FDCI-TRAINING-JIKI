@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="index.js" defer></script>
+    <title>Increment Counter</title>
+  </head>
+  <body>
+    <h1 class="counter">Counter</h1>
+    <p>Count: <span id="count">0</span></p>
+    <p id="something">Something</p>
+    <button id="incrementBtn">Increment</button>
+    <button id="show">Hide Something</button>
+    <button id="title">Get title</button>
+    <button id="author">Get author</button>
+
+    <p>
+      <a id="home" href="index.html" title="Jiki's Increment Counter">Home</a>
+    </p>
+    <div id="myDiv">asd</div>
+    <div id="2ndDiv">1</div>
+    <div id="3rdDiv">2</div>
+    <div id="authorData" data-author-name="Jiki" data-year="2022">
+      Just an Example Content
+    </div>
+    <ul id="data"></ul>
+
+    <form
+      action="https://jsonplaceholder.typicode.com/users"
+      method=""
+      id="addUser"
+    >
+      <label for="nameInput">Name</label>
+      <input type="text" id="nameInput" name="name" />
+
+      <button type="submit">Add user</button>
+    </form>
+  </body>
+</html>
