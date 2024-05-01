@@ -137,16 +137,50 @@ const setCustomAttributeHandler = () => {
 $("#author").click(setCustomAttributeHandler);
 
 //ajax json get method
-//map order of parameters: element, index
+
+//reusable ajax handlers
+
+const ajaxGet = (endpoint, method) => {
+  const baseUrl = "https://jsonplaceholder.typicode.com/";
+  return $.ajax({
+    url: baseUrl + endpoint,
+    method: method,
+    dataType: "json",
+    success: function (data) {
+      return data;
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+};
+
+const ajaxPost = (endpoint, method, data) => {
+  const baseUrl = "https://jsonplaceholder.typicode.com/";
+  return $.ajax({
+    url: baseUrl + endpoint,
+    method: method,
+    dataType: "json",
+    data: data,
+    success: function (data) {
+      return data;
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+};
+
+//map order of parameters: index, element
 const getUsers = () => {
-  $.get("https://jsonplaceholder.typicode.com/users", (data) => {
-    const users = $.map(data, function (user, index) {
-      return `<li>${user.name} ${index}</li>`;
-    });
+  ajaxGet("users", "GET").then((data) => {
+    const users = $(data)
+      .map((index, user) => {
+        return `<li>${user.name}</li>`;
+      })
+      .get();
 
     $("#data").append(users);
-
-    console.log(users);
   });
 };
 
@@ -154,30 +188,29 @@ getUsers();
 
 //filter order of parameters: index, element
 const getFilteredUsers = () => {
-  $.get("https://jsonplaceholder.typicode.com/users", (data) => {
-    const filteredUsers = $(data)
-      .filter(function (index, user) {
-        return user.name.includes("L");
+  ajaxGet("users", "GET").then((data) => {
+    const users = $(data)
+      .filter((index, user) => {
+        return user.name.includes("C");
       })
-      .map(function (index, user) {
-        return `<li style="background-color:pink">${user.name}</li>`;
+      .map((index, user) => {
+        return `<li style="background-color: pink">${user.name}</li>`;
       })
       .get();
 
-    $("#data").append(filteredUsers);
+    $("#data").append(users);
   });
 };
 getFilteredUsers();
-//ajax json post method
 
-const addUsers = (username) => {
-  $.post(
-    "https://jsonplaceholder.typicode.com/users",
-    { name: username },
-    (data) => {
-      $("#data").append(`<li>${data.name}</li>`);
-    }
-  );
+//ajax json post method
+const addUsers = (name) => {
+  const data = {
+    name: name,
+  };
+  ajaxPost("users", "POST", data).then((data) => {
+    $("#data").append("<li>" + data.name + "</li>");
+  });
 };
 
 $("#addUser").submit((e) => {
