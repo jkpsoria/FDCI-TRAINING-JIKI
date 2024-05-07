@@ -154,6 +154,7 @@ SELECT
 FROM
     MACHETALK_MEMBERS;
 
+-- Query NAME, AGE, and SALARY from the MACHETALK_MEMBERS table where salary is greater than 10000 and age is less than 70
 SELECT
     NAME,
     AGE,
@@ -164,6 +165,7 @@ WHERE
     SALARY > 10000
     AND AGE < 70;
 
+-- Query all records from the MACHETALK_MEMBERS table where age is 25, 30, or 35
 SELECT
     *
 FROM
@@ -171,6 +173,7 @@ FROM
 WHERE
     AGE IN (25, 30, 35);
 
+-- Query NAME and MEMBER_AGE (renamed from AGE) from the MACHETALK_MEMBERS table where age is between 25 and 35
 SELECT
     NAME,
     AGE AS `MEMBER_AGE`
@@ -179,9 +182,49 @@ FROM
 WHERE
     `AGE` BETWEEN 25 AND 35;
 
+-- Query all records from the MACHETALK_MEMBERS table where salary starts with "5%"
 SELECT
     *
 FROM
     `MACHETALK_MEMBERS`
 WHERE
     SALARY LIKE "5%";
+
+-- Query all records from the MACHETALK_MEMBERS table where name contains "J"
+SELECT
+    NAME, AGE
+FROM
+    `MACHETALK_MEMBERS`
+WHERE
+    NAME LIKE "%J%";
+
+
+SELECT * FROM MACHETALK_MEMBERS ORDER BY AGE ASC;
+
+SELECT  ADDRESS, AGE, SUM(SALARY) 
+AS TOTAL_SALARY FROM MACHETALK_MEMBERS 
+GROUP BY ADDRESS, AGE;
+
+select * from MACHETALK_MEMBERS
+
+-- INSERT INTO MACHETALK_MEMBERS (ID, NAME, AGE, ADDRESS, SALARY, PHONE) VALUES (NULL, 'Jiki', 24, '123 Main St', 50000.00, NULL), (NULL, 'Jane Smith', 25, '456 Elm St', 60000.00, NULL), (NULL, 'Bob Johnson', 35, '789 Oak St', 70000.00, NULL), (NULL, 'KAAALI', 24, '123 Main St', 50000.00, NULL);
+
+SELECT NAME, AGE, COUNT(NAME) as age_count FROM MACHETALK_MEMBERS GROUP BY AGE;
+
+
+SELECT  ADDRESS, AGE, SUM(SALARY) AS 
+TOTAL_SALARY, COUNT(AGE) FROM MACHETALK_MEMBERS GROUP BY 
+ADDRESS, AGE HAVING TOTAL_SALARY >=5000 
+ORDER BY TOTAL_SALARY DESC;
+
+
+-- Create an index on the NAME column of the MACHETALK_MEMBERS table
+CREATE INDEX idx_name ON MACHETALK_MEMBERS (NAME);
+
+-- Query the MACHETALK_MEMBERS table using the index
+SELECT *
+FROM MACHETALK_MEMBERS
+WHERE NAME = 'Jiki';
+
+-- Drop the index on the NAME column
+DROP INDEX idx_name ON MACHETALK_MEMBERS;
