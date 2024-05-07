@@ -16,3 +16,172 @@ CREATE TABLE
 
 -- Describe the structure of the MT_MEMBERS table
 DESC MT_MEMBERS;
+
+-- Insert the following records into the MT_MEMBERS table:
+-- - ID: 1, NAME: 'John Doe', AGE: 30, ADDRESS: '123 Main St', SALARY: 50000.00
+-- - ID: 2, NAME: 'Jane Smith', AGE: 25, ADDRESS: '456 Elm St', SALARY: 60000.00
+-- - ID: 3, NAME: 'Bob Johnson', AGE: 35, ADDRESS: '789 Oak St', SALARY: 70000.00
+INSERT INTO
+    MT_MEMBERS (ID, NAME, AGE, ADDRESS, SALARY)
+VALUES
+    (1, 'Jiki', 24, '123 Main St', 50000.00),
+    (2, 'Jane Smith', 25, '456 Elm St', 60000.00),
+    (3, 'Bob Johnson', 35, '789 Oak St', 70000.00);
+
+-- Query all records from the MT_MEMBERS table
+SELECT
+    *
+FROM
+    MT_MEMBERS;
+
+-- Update the salary of the member with ID 1 to 55000.00
+UPDATE MT_MEMBERS
+SET
+    SALARY = 55000.00
+WHERE
+    ID = 1;
+
+-- Update the salary of the member with ID 2 to 1111111111111111.00 (an invalid value)
+UPDATE MT_MEMBERS
+SET
+    SALARY = 1111111111111111.00
+WHERE
+    ID = 2;
+
+-- Create a table named LULU with the same structure as MT_MEMBERS
+CREATE TABLE
+    LULU (
+        ID INT NOT NULL AUTO_INCREMENT,
+        NAME VARCHAR(20) NOT NULL,
+        AGE INT NOT NULL,
+        ADDRESS CHAR(25),
+        SALARY DECIMAL(18, 2),
+        PRIMARY KEY (ID)
+    );
+
+-- Insert the same records into the LULU table
+INSERT INTO
+    LULU (ID, NAME, AGE, ADDRESS, SALARY)
+VALUES
+    (1, 'Jiki', 24, '123 Main St', 50000.00),
+    (2, 'Jane Smith', 25, '456 Elm St', 60000.00),
+    (3, 'Bob Johnson', 35, '789 Oak St', 70000.00);
+
+-- Query all records from the LULU table
+SELECT
+    *
+FROM
+    LULU;
+
+-- Update the salary, name, age, and address of the member with ID 3 in the LULU table
+UPDATE LULU
+SET
+    SALARY = 55000.00,
+    NAME = 'Beaver',
+    AGE = 24,
+    ADDRESS = '123 Main St'
+WHERE
+    ID = 3;
+
+-- Truncate (delete all records from) the LULU table
+TRUNCATE TABLE LULU;
+
+-- Drop (delete) the LULU table
+DROP TABLE LULU;
+
+-- Add a new column named PHONE of type VARCHAR(20) to the MT_MEMBERS table
+ALTER TABLE `MT_MEMBERS`
+ADD COLUMN `PHONE` VARCHAR(20);
+
+-- Describe the structure of the MT_MEMBERS table
+DESC MT_MEMBERS;
+
+-- Rename the MT_MEMBERS table to MACHETALK_MEMBERS
+ALTER TABLE `MT_MEMBERS`
+RENAME TO MACHETALK_MEMBERS;
+
+-- Query all records from the MACHETALK_MEMBERS table
+SELECT
+    *
+FROM
+    `MACHETALK_MEMBERS`;
+
+-- Insert new records into the MACHETALK_MEMBERS table
+INSERT INTO
+    `MACHETALK_MEMBERS` (ID, NAME, AGE, ADDRESS, SALARY, PHONE)
+VALUES
+    (NULL, 'Jiki', 24, '123 Main St', 50000.00, NULL),
+    (
+        NULL,
+        'Jane Smith',
+        25,
+        '456 Elm St',
+        60000.00,
+        NULL
+    ),
+    (
+        NULL,
+        'Bob Johnson',
+        35,
+        '789 Oak St',
+        70000.00,
+        NULL
+    ),
+    (NULL, 'KAAALI', 24, '123 Main St', 50000.00, NULL);
+
+-- Query distinct records for NAME, AGE, and ADDRESS from the MACHETALK_MEMBERS table, ordered by NAME in descending order
+SELECT DISTINCT
+    NAME,
+    AGE,
+    `ADDRESS`
+FROM
+    `MACHETALK_MEMBERS`
+ORDER BY
+    `NAME` DESC;
+
+-- Query NAME and AGE from the MACHETALK_MEMBERS table where salary is greater than 10000
+SELECT
+    NAME,
+    AGE
+FROM
+    `MACHETALK_MEMBERS`
+WHERE
+    salary > 10000;
+
+-- Query the average salary from the MACHETALK_MEMBERS table
+SELECT
+    AVG(SALARY) AS AVG_SALARY
+FROM
+    MACHETALK_MEMBERS;
+
+SELECT
+    NAME,
+    AGE,
+    SALARY
+FROM
+    MACHETALK_MEMBERS
+WHERE
+    SALARY > 10000
+    AND AGE < 70;
+
+SELECT
+    *
+FROM
+    MACHETALK_MEMBERS
+WHERE
+    AGE IN (25, 30, 35);
+
+SELECT
+    NAME,
+    AGE AS `MEMBER_AGE`
+FROM
+    `MACHETALK_MEMBERS`
+WHERE
+    `AGE` BETWEEN 25 AND 35;
+
+SELECT
+    *
+FROM
+    `MACHETALK_MEMBERS`
+WHERE
+    SALARY LIKE "5%";
