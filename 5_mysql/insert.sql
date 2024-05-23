@@ -85,4 +85,6 @@ VALUES
 select
     *
 from
-    `MACHETALK_MEMBERS`
+    `MACHETALK_MEMBERS`;
+
+--SQL
