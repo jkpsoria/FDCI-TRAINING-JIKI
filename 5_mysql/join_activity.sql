@@ -26,6 +26,7 @@ ORDER BY
     hire_date;
 
 --4
+explain
 select
     count(emp_no) as total_employees
 from
@@ -33,7 +34,7 @@ from
 
 --5
 select
-    hire_date,
+    year (hire_date),
     count(emp_no) as total_employees_per_date
 from
     employees
@@ -222,10 +223,12 @@ from
 
 --15
 select
-    e.emp_no,
-    e.first_name,
-    e.last_name,
-    d.dept_name
+    d.dept_name,
+    MAX(s.salary) AS highest_salary
 from
-    employees as e
-    inner join --brb
+    departments d
+    join dept_emp de on d.dept_no = de.dept_no
+    join employees e on de.emp_no = e.emp_no
+    join salaries s on e.emp_no = s.emp_no
+group by
+    d.dept_name;
